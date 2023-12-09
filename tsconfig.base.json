@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@alx-portfolio-project/prisma-crypto-fund": [
+        "libs/prisma-crypto-fund/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
