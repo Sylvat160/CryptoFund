@@ -1,0 +1,26 @@
+{
+  "name": "client-side-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/client-side-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/client-side-e2e/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "client-side:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "client-side:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["client-side"]
+}
