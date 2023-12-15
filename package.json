@@ -2,7 +2,10 @@
   "name": "@alx-portfolio-project/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "api:dev": "nx serve api",
+    "client:dev": "nx serve client"
+  },
   "private": true,
   "dependencies": {
     "@nestjs/common": "^10.0.2",
