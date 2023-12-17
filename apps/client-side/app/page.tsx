@@ -5,5 +5,7 @@ export default async function Index() {
    *
    * Note: The corresponding styles are in the ./index.css file.
    */
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+  return (
+      <div className="relative sm:-8 p-4 bg-[#13131a] min-h-screen flex flex-row">zdxc</div>
+  );
 }
