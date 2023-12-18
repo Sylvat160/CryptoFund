@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image'; // Import Image from next
 
-import { logo, sun } from '../assets';
+import { logo, logout } from '../assets';
 import { navlinks } from '../constants';
 
 interface IconProps {
@@ -82,8 +82,8 @@ const Sidebar: React.FC = () => {
 
         <Icon
           styles="bg-[#1c1c24] shadow-secondary"
-          imgUrl={sun}
-          name="sun"
+          imgUrl={logout}
+          name="logout"
           isActive={isActive}
           disabled={false}
           handleClick={() => {}}
