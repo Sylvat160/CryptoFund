@@ -1,3 +1,4 @@
+import NavBar from "../components/NavBar";
 
 export default async function Index() {
   /*
@@ -6,6 +7,8 @@ export default async function Index() {
    * Note: The corresponding styles are in the ./index.css file.
    */
   return (
-      <div className="relative sm:-8 p-4 bg-[#13131a] min-h-screen flex flex-row">zdxc</div>
+      <div className="">
+        <NavBar />
+      </div>
   );
 }

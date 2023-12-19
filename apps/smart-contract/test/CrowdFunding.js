@@ -13,9 +13,8 @@ describe('CrowdFunding', function () {
 
   async function deployCrowdFundingFixture() {
     const [owner, otherAccount] = await ethers.getSigners();
-    const CrowdFunding = await ethers.getContractFactory('CrowdFunding');
-    const crowdFunding = await CrowdFunding.deploy();
-    await crowdFunding.deployed();
+    const crowdFunding = await ethers.deployContract('CrowdFunding');
+    await CrowdFunding.waitForDeployment();
     return { crowdFunding, owner, otherAccount };
   }
 
