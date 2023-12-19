@@ -3,9 +3,31 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../../../../../node_modules/@prisma/client"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+// Define your models
+model Campaign {
+  id           Int      @id @default(autoincrement())
+  owner        String
+  title        String
+  description  String
+  target       Decimal
+  deadline     DateTime
+  amountCollected Decimal
+  image        String
+  donators     Donator[]
+}
+
+model Donator {
+  id         Int      @id @default(autoincrement())
+  campaignId Int
+  address    String
+  amount     Decimal
+  campaign   Campaign @relation(fields: [campaignId], references: [id])
 }

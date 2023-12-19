@@ -8,11 +8,13 @@ const hre = require("hardhat");
 
 async function main() {
 
-  const crowdFunding = await hre.ethers.deployContract('CrowdFunding');
+  const crowdFunding = await hre.ethers.deployContract("CrowdFunding");
 
   await crowdFunding.waitForDeployment();
 
-  console.log(`CrowdFunding address -> ${crowdFunding.target}`);
+  console.log(
+    `CrowdFunding deployed to ${crowdFunding.target}`
+  );
 }
 
 // We recommend this pattern to be able to use async/await everywhere
