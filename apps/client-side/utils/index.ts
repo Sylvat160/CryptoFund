@@ -25,4 +25,5 @@ export const checkIfImage = (
 
   img.onload = () => callback(true);
   img.onerror = () => callback(false);
+  img.onerror = () => alert('Please enter a valid image URL');
 };

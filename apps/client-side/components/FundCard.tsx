@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 
 import { tagType, logoCF } from '../assets';
@@ -8,9 +9,9 @@ interface FundCardProps {
   owner: string;
   title: string;
   description: string;
-  target: string;
-  deadline: string;
-  amountCollected: string;
+  target: string | number;
+  deadline: string | number;
+  amountCollected: string | number;
   image: string;
   handleClick: () => void;
 }
@@ -25,15 +26,17 @@ const FundCard: React.FC<FundCardProps> = ({
   image,
   handleClick,
 }) => {
-  const remainingDays = daysLeft(deadline);
+  const remainingDays = daysLeft(deadline.toString());
 
   return (
     <div
       className="sm:w-[288px] w-full rounded-[15px] bg-[#1c1c24] cursor-pointer"
       onClick={handleClick}
     >
-      <Image
+      <img
         src={image}
+        width={20}
+        height={20}
         alt="fund"
         className="w-full h-[158px] object-cover rounded-[15px]"
       />

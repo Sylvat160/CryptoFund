@@ -3,7 +3,7 @@ import React, { ChangeEvent } from 'react';
 interface FormFieldProps {
   labelName?: string;
   placeholder: string;
-  inputType: string;
+  inputType?: string;
   isTextArea?: boolean;
   value: string;
   handleChange: (

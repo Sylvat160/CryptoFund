@@ -22,6 +22,7 @@ interface IGlobalContextProps {
   signer?: any;
   setUser: (user: any) => void;
   setLoading: (loading: boolean) => void;
+  setCampaigns?: (campaigns: any) => void;
   createCampaign: (campaign: ICampaign) => void;
   getCampaigns: typeof getCampaigns;
   getDonators: (campaignId: number) => void;
@@ -30,7 +31,7 @@ interface IGlobalContextProps {
 
 export const GlobalContext = createContext<IGlobalContextProps>({
   user: {},
-  loading: true,
+  loading: false,
   setUser: () => {},
   setLoading: () => {},
   createCampaign: () => {},
@@ -40,29 +41,45 @@ export const GlobalContext = createContext<IGlobalContextProps>({
 
 export const GlobalContextProvider = (props: any) => {
   const [currentUser, setCurrentUser] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [campaigns, setCampaigns] = useState<any>([]);
   const [donators, setDonators] = useState<any>([]);
   const [donatorsAddress, setDonatorsAddress] = useState<string[]>([]);
   const [walletAddress, setWalletAddress] = useState('');
-  const [provider, setProvider] = useState<Web3Provider>();
-  const [signer, setSigner] = useState<JsonRpcSigner>();
+  const [provider, setProvider] = useState<Web3Provider | null>(null); // Initialize with null
+  const [signer, setSigner] = useState<JsonRpcSigner | null>(null);
 
   const handleCampaignCreation = async (campaign: ICampaign) => {
-    const newCampaign = await createCampaign(
-      walletAddress,
-      campaign.title,
-      campaign.description,
-      campaign.target,
-      campaign.deadline,
-      campaign.image
-    );
-    setCampaigns([...campaigns, newCampaign]);
+    const parsedDeadline = parseFloat(campaign.deadline.toString()); // Convert the string to a floating-point number
+    const deadlineInSeconds = Math.round(parsedDeadline);
+
+    try {
+      const newCampaign = await createCampaign(
+        '0x452A12ad65C41D9A88f2515Af6c6F364060D4CE8',
+        campaign.title,
+        campaign.description,
+        campaign.target,
+        deadlineInSeconds,
+        campaign.image
+      );
+      setCampaigns((prevCampaigns: any) => [...prevCampaigns, newCampaign]);
+    } catch (error) {
+      console.error('Error creating campaign:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const fetchCampaigns = async () => {
-    const campaigns = await getCampaigns();
-    setCampaigns(campaigns);
+    try {
+      setIsLoading(true);
+      const newCampaigns = await getCampaigns();
+      setCampaigns(newCampaigns);
+    } catch (error) {
+      console.error('Error fetching campaigns:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const fetchDonators = async (campaignId: number) => {
@@ -72,7 +89,7 @@ export const GlobalContextProvider = (props: any) => {
   };
 
   const connectToMetamask = async () => {
-    const {signer, provider} = await connectWithMetaMask();
+    const { signer, provider } = await connectWithMetaMask();
     setSigner(signer);
     setProvider(provider);
   };
@@ -83,7 +100,7 @@ export const GlobalContextProvider = (props: any) => {
         setWalletAddress(accounts[0]);
       });
     }
-  }, [provider])
+  }, [provider]);
 
   return (
     <GlobalContext.Provider
@@ -95,6 +112,7 @@ export const GlobalContextProvider = (props: any) => {
         createCampaign: handleCampaignCreation,
         getCampaigns: fetchCampaigns,
         getDonators: fetchDonators,
+        setCampaigns,
         walletAddress,
         campaigns,
         donators,

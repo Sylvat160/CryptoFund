@@ -11,13 +11,14 @@ declare global {
 }
 
 export interface ICampaign {
+  id?: number;
   owner: string;
   title: string;
   description: string;
   target: number;
   deadline: number;
   image: string;
-  raised: number;
+  raised?: number;
 }
 
 export async function connectWithMetaMask() {
@@ -50,6 +51,7 @@ export const createCampaign = async (
   try {
     // Connect with MetaMask and get the signer
     const { signer } = await connectWithMetaMask();
+    console.log(contractAddress);
 
     const contract = new ethers.Contract(contractAddress, ABI, signer);
 
@@ -106,8 +108,6 @@ export const getCampaigns = async () => {
     // Call the getCampaigns function
     const campaigns = await contract.getCampaigns();
 
-    console.log('Campaigns:', campaigns);
-
     return campaigns;
   } catch (error) {
     console.error('Failed to get campaigns:', error);
@@ -120,7 +120,7 @@ export const getDonators = async (
 ): Promise<{ addresses: string[]; donations: number[] }> => {
   try {
     // Connect with MetaMask and get the signer
-    const {signer} = await connectWithMetaMask();
+    const { signer } = await connectWithMetaMask();
 
     const contract = new ethers.Contract(contractAddress, ABI, signer);
 
