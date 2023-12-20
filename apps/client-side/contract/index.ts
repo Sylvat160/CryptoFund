@@ -11,13 +11,13 @@ declare global {
 }
 
 export interface ICampaign {
-    owner: string;
-    title: string;
-    description: string;
-    target: number;
-    deadline: number;
-    image: string;
-    raised: number;
+  owner: string;
+  title: string;
+  description: string;
+  target: number;
+  deadline: number;
+  image: string;
+  raised: number;
 }
 
 export async function connectWithMetaMask() {
@@ -35,10 +35,8 @@ export async function connectWithMetaMask() {
   // Get the signer object
   const signer = provider.getSigner();
 
-  console.log('Signer:', signer);
-
-  // Return the signer
-  return signer;
+  // Return the signer and provider
+  return { signer, provider };
 }
 
 export const createCampaign = async (
@@ -51,7 +49,7 @@ export const createCampaign = async (
 ) => {
   try {
     // Connect with MetaMask and get the signer
-    const signer = await connectWithMetaMask();
+    const { signer } = await connectWithMetaMask();
 
     const contract = new ethers.Contract(contractAddress, ABI, signer);
 
@@ -83,7 +81,7 @@ export const donateToCampaign = async (
 ): Promise<void> => {
   try {
     // Connect with MetaMask and get the signer
-    const signer = await connectWithMetaMask();
+    const { signer } = await connectWithMetaMask();
 
     const contract = new ethers.Contract(contractAddress, ABI, signer);
 
@@ -101,7 +99,7 @@ export const donateToCampaign = async (
 export const getCampaigns = async () => {
   try {
     // Connect with MetaMask and get the signer
-    const signer = await connectWithMetaMask();
+    const { signer } = await connectWithMetaMask();
 
     const contract = new ethers.Contract(contractAddress, ABI, signer);
 
@@ -117,13 +115,12 @@ export const getCampaigns = async () => {
   }
 };
 
-
 export const getDonators = async (
   campaignId: number
 ): Promise<{ addresses: string[]; donations: number[] }> => {
   try {
     // Connect with MetaMask and get the signer
-    const signer = await connectWithMetaMask();
+    const {signer} = await connectWithMetaMask();
 
     const contract = new ethers.Contract(contractAddress, ABI, signer);
 

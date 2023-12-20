@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { tagType, thirdweb } from '../assets';
+import { tagType, logoCF } from '../assets';
 import { daysLeft } from '../utils';
 import Image from 'next/image';
 
@@ -81,7 +81,7 @@ const FundCard: React.FC<FundCardProps> = ({
         <div className="flex items-center mt-[20px] gap-[12px]">
           <div className="w-[30px] h-[30px] rounded-full flex justify-center items-center bg-[#13131a]">
             <Image
-              src={thirdweb}
+              src={logoCF}
               alt="user"
               className="w-1/2 h-1/2 object-contain"
             />

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import {
   createCampaign,
   getCampaigns,
@@ -9,6 +9,7 @@ import {
   ICampaign,
   connectWithMetaMask,
 } from '../contract';
+import { Web3Provider, JsonRpcSigner } from '@ethersproject/providers';
 
 interface IGlobalContextProps {
   user: any;
@@ -44,8 +45,8 @@ export const GlobalContextProvider = (props: any) => {
   const [donators, setDonators] = useState<any>([]);
   const [donatorsAddress, setDonatorsAddress] = useState<string[]>([]);
   const [walletAddress, setWalletAddress] = useState('');
-  const [provider, setProvider] = useState();
-  const [signer, setSigner] = useState<any>();
+  const [provider, setProvider] = useState<Web3Provider>();
+  const [signer, setSigner] = useState<JsonRpcSigner>();
 
   const handleCampaignCreation = async (campaign: ICampaign) => {
     const newCampaign = await createCampaign(
@@ -71,9 +72,18 @@ export const GlobalContextProvider = (props: any) => {
   };
 
   const connectToMetamask = async () => {
-    const signer = await connectWithMetaMask();
+    const {signer, provider} = await connectWithMetaMask();
     setSigner(signer);
+    setProvider(provider);
   };
+
+  useEffect(() => {
+    if (provider) {
+      provider.listAccounts().then((accounts: string[]) => {
+        setWalletAddress(accounts[0]);
+      });
+    }
+  }, [provider])
 
   return (
     <GlobalContext.Provider
