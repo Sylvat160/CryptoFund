@@ -4,7 +4,7 @@ import { loader } from '../assets';
 import Image from 'next/image';
 
 interface LoaderProps {
-    title: string;
+  title?: string;
 }
 
 const Loader: React.FC<LoaderProps> = ({

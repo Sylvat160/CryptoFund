@@ -21,10 +21,12 @@ export interface ICampaign {
   raised?: number;
 }
 
-export async function connectWithMetaMask() {
+export async function connectWithMetaMask(
+  setProvider?: (provider: any) => void
+) {
   // Check if MetaMask is installed
   if (typeof window.ethereum === 'undefined') {
-    throw new Error('Please install MetaMask to access this feature.');
+    throw alert('Please install MetaMask to access this feature.');
   }
 
   // Request access to the user's MetaMask accounts
@@ -32,6 +34,7 @@ export async function connectWithMetaMask() {
 
   // Create a new instance of ethers.js provider
   const provider = new ethers.providers.Web3Provider(window.ethereum);
+  setProvider && setProvider(provider);
 
   // Get the signer object
   const signer = provider.getSigner();
@@ -98,10 +101,10 @@ export const donateToCampaign = async (
   }
 };
 
-export const getCampaigns = async () => {
+export const getCampaigns = async (setProvider: any) => {
   try {
     // Connect with MetaMask and get the signer
-    const { signer } = await connectWithMetaMask();
+    const { signer } = await connectWithMetaMask(setProvider);
 
     const contract = new ethers.Contract(contractAddress, ABI, signer);
 
@@ -111,6 +114,22 @@ export const getCampaigns = async () => {
     return campaigns;
   } catch (error) {
     console.error('Failed to get campaigns:', error);
+    throw error;
+  }
+};
+
+export const getCampaignById = async (campaignId: number) => {
+  try {
+    const { signer } = await connectWithMetaMask();
+
+    const contract = new ethers.Contract(contractAddress, ABI, signer);
+
+    // Call the getCampaign function with the specified ID
+    const campaign = await contract.campaigns(campaignId);
+
+    return campaign;
+  } catch (error) {
+    console.error(`Failed to get campaign with ID ${campaignId}:`, error);
     throw error;
   }
 };

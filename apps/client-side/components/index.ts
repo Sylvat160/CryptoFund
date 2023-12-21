@@ -4,3 +4,4 @@ export { default as CustomButton } from './CustomButton';
 export { default as FormField } from './FormField';
 export { default as FundCard } from './FundCard';
 export { default as Loader } from './Loader';
+export { default as DisplayCampaigns } from './DisplayCampaigns';

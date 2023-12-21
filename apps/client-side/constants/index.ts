@@ -1,9 +1,4 @@
-import {
-  createCampaign,
-  dashboard,
-  payment,
-  profile,
-} from '../assets';
+import { createCampaign, dashboard, payment, profile } from '../assets';
 
 export const navlinks = [
   {
@@ -26,7 +21,34 @@ export const navlinks = [
     name: 'profile',
     imgUrl: profile,
     link: '/profile',
-  }
+  },
 ];
 
-export const contractAddress = "0x0fc8727b36d7d66fe5d28bd13873ae2e4352d220";
+export const contractAddress = '0x0fc8727b36d7d66fe5d28bd13873ae2e4352d220';
+
+export const switchToSepoliaNetwork = async () => {
+  try {
+    // Specify the Sepolia network details
+    const sepoliaNetwork = {
+      chainId: '0x123456', // Replace with the correct chainId for Sepolia
+      chainName: 'Sepolia',
+      nativeCurrency: {
+        name: 'Ether',
+        symbol: 'ETH',
+        decimals: 18,
+      },
+      rpcUrls: ['https://sepolia-rpc-url'], // Replace with the correct RPC URL
+      blockExplorerUrls: ['https://sepolia-explorer-url'], // Replace with the correct explorer URL
+    };
+
+    // Send the request to add the Sepolia network
+    await window.ethereum.request({
+      method: 'wallet_addEthereumChain',
+      params: [sepoliaNetwork],
+    });
+
+    console.log('Switched to Sepolia network');
+  } catch (error) {
+    console.error('Error switching to Sepolia network:', error);
+  }
+};

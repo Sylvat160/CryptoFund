@@ -2,20 +2,19 @@
 
 'use client';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useGlobalContext } from '../../context';
+import { useRouter } from 'next/navigation';
 import { money } from '../../assets';
-import { CustomButton, FormField } from '../../components';
+import { CustomButton, FormField, Loader } from '../../components';
 // import { ICampaign } from '../../contract';
 import { checkIfImage } from '../../utils';
 import Image from 'next/image';
 
 export default function CreateCampaign() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { createCampaign } = useGlobalContext();
+  const { createCampaign, loading } = useGlobalContext();
   const [form, setForm] = useState<any>({
-    owner: '0x452A12ad65C41D9A88f2515Af6c6F364060D4CE8',
+    owner: '',
     title: '',
     description: '',
     target: 0,
@@ -39,21 +38,17 @@ export default function CreateCampaign() {
         alert('Please upload an image');
         return;
       }
-      console.log(form, 'form');
 
-      setIsLoading(true);
       try {
-        await createCampaign(form);
-        router.push('/');
+        createCampaign(form, router);
       } catch (error) {
         console.error('Error creating campaign:', error);
-      } finally {
-        setIsLoading(false);
       }
     });
   };
   return (
     <div className="bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
+      {loading && <Loader />}
       <div className="flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
         <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">
           Start a Campaign
@@ -122,15 +117,11 @@ export default function CreateCampaign() {
         />
 
         <div className="flex justify-center items-center mt-[40px]">
-          {isLoading ? (
-            '...'
-          ) : (
-            <CustomButton
-              btnType="submit"
-              title="Submit new campaign"
-              styles="bg-[#8c6dfd]"
-            />
-          )}
+          <CustomButton
+            btnType="submit"
+            title="Submit new campaign"
+            styles="bg-[#8c6dfd]"
+          />
         </div>
       </form>
     </div>
