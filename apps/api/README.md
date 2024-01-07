@@ -104,7 +104,7 @@ The project follows the standard Nx project structure:
 
 To run the API project locally, follow these steps:
 
-4. **Run the Application:**
+1. **Run the Application:**
    ```bash
     npx nx serve api
    ```

@@ -29,6 +29,45 @@ npm install
 
 ## Projects
 
+## Prisma Setup
+
+The global project utilizes Prisma for managing the database schema and interactions. The Prisma setup is encapsulated in the `prisma-crypto-fund` library.
+
+### Prisma Crypto Fund Library
+
+The `prisma-crypto-fund` library contains the Prisma configuration and necessary tools for managing the database.
+
+**Prisma Configuration:**
+
+- The Prisma configuration is located in the `libs/prisma-crypto-fund/src/lib/prisma` directory.
+- To generate the Prisma client, use the following command:
+
+  ```bash
+  npx prisma generate
+  ```
+
+**Database Migrations:**
+
+- To create a new migration, use the following command:
+
+  ```bash
+  npx prisma migrate save --name <migration-name>
+  ```
+
+- To apply pending migrations, use:
+
+  ```bash
+  npx prisma migrate up
+  ```
+
+**Reset Database:**
+
+- To reset the database and apply all migrations from scratch, use:
+
+  ```bash
+  npx prisma migrate reset --force
+  ```
+
 ### 1. API (NestJS Backend)
 
 For details on the NestJS backend project, including setup, testing, and API endpoints, refer to the [API Documentation](./apps/api/README.md).
