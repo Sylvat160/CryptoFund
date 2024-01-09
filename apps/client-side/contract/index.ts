@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import contract from './CrowdFunding.json';
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 export const contractAddress = '0x0fc8727b36d7d66fe5d28bd13873ae2e4352d220';
 export const { abi: ABI } = contract;
 
@@ -15,7 +15,7 @@ export interface ICampaign {
   owner: string;
   title: string;
   description: string;
-  target: number;
+  target: string;
   deadline: number;
   image: string;
   raised?: number;
@@ -47,7 +47,7 @@ export const createCampaign = async (
   owner: string,
   title: string,
   description: string,
-  target: number,
+  target: BigNumber,
   deadline: number,
   image: string
 ) => {
@@ -67,11 +67,7 @@ export const createCampaign = async (
       deadline,
       image
     );
-    const receipt = await tx.wait();
-
-    // Get the return value (numberOfCampaigns - 1)
-    const numberOfCampaigns = receipt.events[0].args[0].toNumber();
-    console.log('Campaign created with ID:', numberOfCampaigns);
+    await tx.wait();
 
     return tx;
   } catch (error) {

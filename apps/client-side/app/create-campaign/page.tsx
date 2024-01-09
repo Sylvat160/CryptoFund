@@ -17,8 +17,8 @@ export default function CreateCampaign() {
     owner: '',
     title: '',
     description: '',
-    target: 0,
-    deadline: 0,
+    target: '',
+    deadline: '',
     image: '',
   });
 
@@ -103,7 +103,7 @@ export default function CreateCampaign() {
           <FormField
             labelName="End Date *"
             placeholder="End Date"
-            inputType="number"
+            inputType="date"
             value={form.deadline}
             handleChange={(e) => handleFormFieldChange('deadline', e)}
           />

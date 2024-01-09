@@ -1,8 +1,7 @@
-export const daysLeft = (deadline: string): string => {
+export const daysLeft = (deadline: number): string => {
   const difference: number = new Date(deadline).getTime() - Date.now();
   const remainingDays: number = difference / (1000 * 3600 * 24);
-
-  return remainingDays.toFixed(0);
+  return Math.ceil(remainingDays).toString();
 };
 
 export const calculateBarPercentage = (

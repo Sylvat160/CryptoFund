@@ -10,6 +10,7 @@ import {
   connectWithMetaMask,
 } from '../contract';
 import { Web3Provider, JsonRpcSigner } from '@ethersproject/providers';
+import { ethers } from 'ethers';
 
 interface IGlobalContextProps {
   user: any;
@@ -90,8 +91,8 @@ export const GlobalContextProvider = (props: any) => {
         walletAddress,
         campaign.title,
         campaign.description,
-        campaign.target,
-        deadlineInSeconds,
+        ethers.utils.parseUnits(campaign.target, 18),
+        new Date(campaign.deadline).getTime(),
         campaign.image
       )
         .then((newCampaign) => {

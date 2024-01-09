@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { loader } from '../assets';
 import { FundCard } from '.';
 import Image from 'next/image';
+import { ethers } from 'ethers';
 
 interface DisplayCampaignsProps {
   title: string;
@@ -59,7 +60,8 @@ const DisplayCampaigns: React.FC<DisplayCampaignsProps> = ({
               title={campaign?.title}
               description={campaign?.description}
               target={campaign?.target?.toString()}
-              deadline={campaign?.deadline?.toString()}
+              // deadline={campaign?.deadline?.toString()}
+              deadline={campaign.deadline?.toNumber()}
               // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
               amountCollected={campaign?.raised?.toString()}
               image={campaign?.image}

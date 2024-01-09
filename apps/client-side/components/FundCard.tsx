@@ -4,6 +4,8 @@ import React from 'react';
 import { tagType, logoCF } from '../assets';
 // import { daysLeft } from '../utils';
 import Image from 'next/image';
+import { ethers } from 'ethers';
+import { daysLeft } from '../utils';
 
 interface FundCardProps {
   owner: string;
@@ -49,7 +51,7 @@ const FundCard: React.FC<FundCardProps> = ({
             className="w-[17px] h-[17px] object-contain"
           />
           <p className="ml-[12px] mt-[2px] font-epilogue font-medium text-[12px] text-[#808191]">
-            Education
+            {/* Education */}
           </p>
         </div>
 
@@ -68,12 +70,12 @@ const FundCard: React.FC<FundCardProps> = ({
               {amountCollected}
             </h4>
             <p className="mt-[3px] font-epilogue font-normal text-[12px] leading-[18px] text-[#808191] sm:max-w-[120px] truncate">
-              Raised of {target}
+              Raised of {ethers.utils.formatUnits(target, 18)}
             </p>
           </div>
           <div className="flex flex-col">
             <h4 className="font-epilogue font-semibold text-[14px] text-[#b2b3bd] leading-[22px]">
-              {10}
+              {daysLeft(Number(deadline))}
             </h4>
             <p className="mt-[3px] font-epilogue font-normal text-[12px] leading-[18px] text-[#808191] sm:max-w-[120px] truncate">
               Days Left

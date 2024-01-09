@@ -10,6 +10,7 @@ import { useGlobalContext } from '../../../context';
 import { getCampaignById, donateToCampaign } from '../../../contract';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { ethers } from 'ethers';
 
 export default function CampaignDetails({
   params,
@@ -32,6 +33,7 @@ export default function CampaignDetails({
         setCampaign(campaign);
         console.log('Logging from Campaign Details Page');
         console.log('Campaign', campaign);
+        console.log('deadline', campaign.deadline?.toNumber());
         setLoading(false);
       })
       .catch((error) => {
@@ -88,10 +90,23 @@ export default function CampaignDetails({
         </div>
 
         <div className="flex md:w-[150px] w-full flex-wrap justify-between gap-[30px]">
-          <CountBox title="Days Left" value={daysLeft(campaign?.deadline)} />
           <CountBox
-            title={`Raised of ${campaign?.target?.toString()}`}
-            value={campaign?.amountCollected?.toString()}
+            title="Days Left"
+            value={daysLeft(campaign?.deadline?.toNumber())}
+          />
+          <CountBox
+            title={`Raised of ${
+              campaign?.target
+                ? ethers.utils.formatUnits(campaign?.target?.toString(), 18)
+                : 'N/A'
+            }`}
+            value={
+              campaign?.amountCollected
+                ? ethers.utils
+                    .formatUnits(campaign?.amountCollected, 18)
+                    .toString()
+                : 'N/A'
+            }
           />
           <CountBox title="Total Backers" value={donators?.length} />
         </div>
