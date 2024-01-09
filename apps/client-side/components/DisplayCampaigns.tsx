@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { loader } from '../assets';
 import { FundCard } from '.';
 import Image from 'next/image';
-import { ethers } from 'ethers';
 
 interface DisplayCampaignsProps {
   title: string;
