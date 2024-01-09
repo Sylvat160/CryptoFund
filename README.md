@@ -8,7 +8,7 @@ Welcome to the documentation for our global project! This repository follows a m
 2. [API End-to-End Tests](./apps/api-e2e/README.md)
 3. [Client-Side (Next.js Frontend)](./apps/client-side/README.md)
 4. [Client-Side End-to-End Tests](./apps/client-side-e2e/README.md)
-5. [Smart Contract (Solidity)](./apps/smart-contract/README.md)
+5. [Smart Contract (Solidity)](./smart-contract/README.md)
 
 ## Getting Started
 
@@ -86,7 +86,7 @@ Understand how to run end-to-end tests for the client-side application with Cypr
 
 ### 5. Smart Contract (Solidity)
 
-Delve into the world of smart contracts with information on setup, deployment, and testing. Check out the [Smart Contract Documentation](./apps/smart-contract/README.md).
+Delve into the world of smart contracts with information on setup, deployment, and testing. Check out the [Smart Contract Documentation](./smart-contract/README.md).
 
 ## Additional Resources
 

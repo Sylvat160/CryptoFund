@@ -1,13 +1,43 @@
-# Sample Hardhat Project
+## Smart Contract (Hardhat)
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+The project includes a directory for smart contracts using Hardhat, a development environment for Ethereum. Follow these steps to install dependencies, deploy locally, and run tests.
 
-Try running some of the following tasks:
+### Smart Contract Directory
 
-```shell
-npx hardhat help
+Navigate to the smart contract directory:
+
+```bash
+cd smart-contract
+```
+
+### Install Dependencies
+
+Run the following command to install project dependencies:
+
+```bash
+npm install
+```
+
+### Compile Smart Contract
+
+Compile the smart contract by running:
+
+```bash
+npx hardhat compile
+```
+
+### Deploy Locally
+
+To deploy the smart contract locally, execute the deploy script:
+
+```bash
+npx hardhat run script/deploy.js
+```
+
+### Run Tests
+
+To run tests for the smart contract, use the following command:
+
+```bash
 npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
 ```
