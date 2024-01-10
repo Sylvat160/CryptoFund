@@ -11,6 +11,7 @@ import {
 } from '../contract';
 import { Web3Provider, JsonRpcSigner } from '@ethersproject/providers';
 import { ethers } from 'ethers';
+import { addCampaignToDatabase } from '../constants';
 
 interface IGlobalContextProps {
   user: any;
@@ -80,6 +81,13 @@ export const GlobalContextProvider = (props: any) => {
   //   }
   // };
 
+  const addCampaignToDB = async (campaign: ICampaign) => {
+    await addCampaignToDatabase({
+      ...campaign,
+      deadline: new Date(campaign.deadline).toISOString(),
+      amountCollected: '0',
+    });
+  };
   const handleCampaignCreation = (campaign: ICampaign, router: any) => {
     const parsedDeadline = parseFloat(campaign.deadline.toString()); // Convert the string to a floating-point number
     const deadlineInSeconds = Math.round(parsedDeadline);
@@ -96,6 +104,7 @@ export const GlobalContextProvider = (props: any) => {
         campaign.image
       )
         .then((newCampaign) => {
+          addCampaignToDB(campaign);
           setCampaigns((prevCampaigns: any) => [...prevCampaigns, newCampaign]);
           router.push('/');
         })

@@ -70,7 +70,7 @@ const FundCard: React.FC<FundCardProps> = ({
               {amountCollected}
             </h4>
             <p className="mt-[3px] font-epilogue font-normal text-[12px] leading-[18px] text-[#808191] sm:max-w-[120px] truncate">
-              Raised of {ethers.utils.formatUnits(target, 18)}
+              Raised of {ethers.utils.formatUnits(target, 18).toString()}
             </p>
           </div>
           <div className="flex flex-col">

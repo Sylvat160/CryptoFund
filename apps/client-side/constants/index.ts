@@ -1,4 +1,6 @@
+import axios from 'axios';
 import { createCampaign, dashboard, payment, profile } from '../assets';
+const baseUrl = 'http://localhost:3000/api';
 
 export const navlinks = [
   {
@@ -51,4 +53,8 @@ export const switchToSepoliaNetwork = async () => {
   } catch (error) {
     console.error('Error switching to Sepolia network:', error);
   }
+};
+
+export const addCampaignToDatabase = async (data: unknown) => {
+  await axios.post(`${baseUrl}/campaigns`, data);
 };
