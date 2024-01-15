@@ -33,7 +33,6 @@
     "@babel/preset-react": "^7.14.5",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
-    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "@nx/cypress": "17.2.0",
     "@nx/esbuild": "17.2.0",
     "@nx/eslint": "17.2.0",

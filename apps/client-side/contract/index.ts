@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import contract from './CrowdFunding.json';
 import { BigNumber, ethers } from 'ethers';
-export const contractAddress = '0x0fc8727b36d7d66fe5d28bd13873ae2e4352d220';
+export const contractAddress = '0x51f555c4e6b4a2D2872e5191ce1a44705D9CD01b';
 export const { abi: ABI } = contract;
 
 declare global {
